@@ -45,6 +45,8 @@ export class ListTasksComponent implements OnInit {
       tasks.forEach((task: TaskModel) => {
         list.push(this.generateFormTask(task));
       });
+    }, (err) => {
+      console.log(err);
     });
   }
 
@@ -65,7 +67,6 @@ export class ListTasksComponent implements OnInit {
 
   editTaskDescription(index) {
     let list = this.list();
-    console.log(list.value[index]);
     const dialogRef = this.dialog.open(ModalTasksComponent, {
       width: '800px',
       data: list.value[index]
@@ -86,7 +87,6 @@ export class ListTasksComponent implements OnInit {
     const list = this.list();
     const task = list.value[index];
     this.taskService.edit(task).subscribe((result: TaskModel) => {
-      console.log(result);
       list.controls[index].patchValue(result);
     }, (err) => {
       console.log(err);
